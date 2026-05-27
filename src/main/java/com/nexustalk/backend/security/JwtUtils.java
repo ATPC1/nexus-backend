@@ -34,7 +34,17 @@ public class JwtUtils {
     }
 
     private Key key() {
-        return Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSecret));
+        try {
+            return Keys.hmacShaKeyFor(Decoders.BASE64.decode(jwtSecret));
+        } catch (IllegalArgumentException e) {
+            byte[] keyBytes = jwtSecret.getBytes(java.nio.charset.StandardCharsets.UTF_8);
+            if (keyBytes.length < 32) {
+                byte[] padded = new byte[32];
+                System.arraycopy(keyBytes, 0, padded, 0, keyBytes.length);
+                return Keys.hmacShaKeyFor(padded);
+            }
+            return Keys.hmacShaKeyFor(keyBytes);
+        }
     }
 
     public String getUserNameFromJwtToken(String token) {
