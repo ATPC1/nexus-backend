@@ -52,6 +52,8 @@ public class AuthController {
                     userDetails.getEmail()));
         } catch (org.springframework.security.core.AuthenticationException e) {
             return ResponseEntity.status(401).body(new MessageResponse("Error: Invalid email or password"));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(new MessageResponse("Debug Error: " + e.toString()));
         }
     }
 
