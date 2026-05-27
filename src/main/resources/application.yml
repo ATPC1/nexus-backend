@@ -20,7 +20,7 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 ai:
   gemini:
-    api-key: ${GEMINI_API_KEY:AIzaSyA1OeLXtn3CxIDlgK1e9B4_ykYJWWLywXo}
+    api-key: ${GEMINI_API_KEY:}
 server:
   port: ${PORT:8080}
 
